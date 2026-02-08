@@ -764,6 +764,7 @@ private:
     friend class            DetectionManager;
     friend class            NetworkClient;
     friend class            NetworkServer;
+    friend class            OpenRGBPluginAPI;
     friend class            ProfileManager;
     friend class            ResourceManager;
 };
