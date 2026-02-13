@@ -11,6 +11,9 @@
 
 #include "RGBController_ClevoKeyboard.h"
 #include "KeyboardLayoutManager.h"
+#include <iostream>
+#include <string>
+#include <sstream>
 
 /**------------------------------------------------------------------*\
     @name CLEVO Keyboard
@@ -254,12 +257,13 @@ void RGBController_ClevoKeyboard::SetupZones()
 
         new_led.name    = new_kb.GetKeyNameAt(led_idx);
 
-        new_led.value   = new_kb.GetKeyValueAt(led_idx);
+        new_led.value   = GetCorrectHWValue(new_led.name);
 
         leds.push_back(new_led);
     }
 
-    SetupColors();
+
+        SetupColors();
 
     /*---------------------------------------------------------*\
     | Create buffer map to translate OpenRGB LED order to       |
@@ -274,6 +278,115 @@ void RGBController_ClevoKeyboard::SetupZones()
         buffer_map[leds[led_idx].value] = &colors[led_idx];
     }
 }
+
+unsigned int RGBController_ClevoKeyboard::GetCorrectHWValue(const std::string& key_name)
+{
+    // F-row
+    if(key_name == "Key: Escape") return 105;
+    if(key_name == "Key: F1") return 106;
+    if(key_name == "Key: F2") return 107;
+    if(key_name == "Key: F3") return 108;
+    if(key_name == "Key: F4") return 109;
+    if(key_name == "Key: F5") return 110;
+    if(key_name == "Key: F6") return 111;
+    if(key_name == "Key: F7") return 112;
+    if(key_name == "Key: F8") return 113;
+    if(key_name == "Key: F9") return 114;
+    if(key_name == "Key: F10") return 115;
+    if(key_name == "Key: F11") return 116;
+    if(key_name == "Key: F12") return 117;
+    if(key_name == "Key: Print Screen") return 118;
+    if(key_name == "Key: `") return 84;
+    if(key_name == "Key: 1") return 85;
+    if(key_name == "Key: 2") return 86;
+    if(key_name == "Key: 3") return 87;
+    if(key_name == "Key: 4") return 88;
+    if(key_name == "Key: 5") return 89;
+    if(key_name == "Key: 6") return 90;
+    if(key_name == "Key: 7") return 91;
+    if(key_name == "Key: 8") return 92;
+    if(key_name == "Key: 9") return 93;
+    if(key_name == "Key: 0") return 94;
+    if(key_name == "Key: -") return 95;
+    if(key_name == "Key: =") return 96;
+    if(key_name == "Key: Backspace") return 98;
+    if(key_name == "Key: Insert") return 119;
+    if(key_name == "Key: Home") return 121;
+    if(key_name == "Key: Page Up") return 123;
+    if(key_name == "Key: Delete") return 120;
+    if(key_name == "Key: End") return 122;
+    if(key_name == "Key: Page Down") return 124;
+    if(key_name == "Key: Tab") return 63;
+    if(key_name == "Key: Q") return 65;
+    if(key_name == "Key: W") return 66;
+    if(key_name == "Key: E") return 67;
+    if(key_name == "Key: R") return 68;
+    if(key_name == "Key: T") return 69;
+    if(key_name == "Key: Y") return 70;
+    if(key_name == "Key: U") return 71;
+    if(key_name == "Key: I") return 72;
+    if(key_name == "Key: O") return 73;
+    if(key_name == "Key: P") return 74;
+    if(key_name == "Key: [") return 75;
+    if(key_name == "Key: ]") return 76;
+    if(key_name == "Key: Caps Lock") return 42;
+    if(key_name == "Key: A") return 44;
+    if(key_name == "Key: S") return 45;
+    if(key_name == "Key: D") return 46;
+    if(key_name == "Key: F") return 47;
+    if(key_name == "Key: G") return 48;
+    if(key_name == "Key: H") return 49;
+    if(key_name == "Key: J") return 50;
+    if(key_name == "Key: K") return 51;
+    if(key_name == "Key: L") return 52;
+    if(key_name == "Key: ;") return 53;
+    if(key_name == "Key: '") return 54;
+    if(key_name == "Key: #") return 55;
+    if(key_name == "Key: Enter") return 77;
+    if(key_name == "Key: Left Shift") return 22;
+    if(key_name == "Key: \\ (ISO)") return 23;
+    if(key_name == "Key: Z") return 24;
+    if(key_name == "Key: X") return 25;
+    if(key_name == "Key: C") return 26;
+    if(key_name == "Key: V") return 27;
+    if(key_name == "Key: B") return 28;
+    if(key_name == "Key: N") return 29;
+    if(key_name == "Key: M") return 30;
+    if(key_name == "Key: ,") return 31;
+    if(key_name == "Key: .") return 32;
+    if(key_name == "Key: /") return 33;
+    if(key_name == "Key: Right Shift") return 35;
+    if(key_name == "Key: Left Control") return 0;
+    if(key_name == "Key: Left Fn") return 2;
+    if(key_name == "Key: Left Windows") return 3;
+    if(key_name == "Key: Left Alt") return 4;
+    if(key_name == "Key: Space") return 7;
+    if(key_name == "Key: Right Alt") return 10;
+    if(key_name == "Key: Right Control") return 12;
+    if(key_name == "Key: Up Arrow") return 14;
+    if(key_name == "Key: Left Arrow") return 13;
+    if(key_name == "Key: Down Arrow") return 18;
+    if(key_name == "Key: Right Arrow") return 15;
+    if(key_name == "Key: Num Lock") return 99;
+    if(key_name == "Key: Number Pad /") return 100;
+    if(key_name == "Key: Number Pad *") return 101;
+    if(key_name == "Key: Number Pad -") return 102;
+    if(key_name == "Key: Number Pad +") return 81;
+    if(key_name == "Key: Number Pad 7") return 78;
+    if(key_name == "Key: Number Pad 8") return 79;
+    if(key_name == "Key: Number Pad 9") return 80;
+    if(key_name == "Key: Number Pad 6") return 59;
+    if(key_name == "Key: Number Pad 4") return 57;
+    if(key_name == "Key: Number Pad 5") return 58;
+    if(key_name == "Key: Number Pad 1") return 36;
+    if(key_name == "Key: Number Pad 2") return 37;
+    if(key_name == "Key: Number Pad 3") return 38;
+    if(key_name == "Key: Number Pad Enter") return 39;
+    if(key_name == "Key: Number Pad 0") return 16;
+    if(key_name == "Key: Number Pad .") return 17;
+    return 0;
+}
+
 
 void RGBController_ClevoKeyboard::ResizeZone(int /*zone*/, int /*new_size*/)
 {
