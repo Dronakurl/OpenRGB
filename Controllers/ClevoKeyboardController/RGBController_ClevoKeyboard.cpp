@@ -11,9 +11,8 @@
 
 #include "RGBController_ClevoKeyboard.h"
 #include "KeyboardLayoutManager.h"
-#include <iostream>
+#include <unordered_map>
 #include <string>
-#include <sstream>
 
 /**------------------------------------------------------------------*\
     @name CLEVO Keyboard
@@ -281,110 +280,61 @@ void RGBController_ClevoKeyboard::SetupZones()
 
 unsigned int RGBController_ClevoKeyboard::GetCorrectHWValue(const std::string& key_name)
 {
-    // F-row
-    if(key_name == "Key: Escape") return 105;
-    if(key_name == "Key: F1") return 106;
-    if(key_name == "Key: F2") return 107;
-    if(key_name == "Key: F3") return 108;
-    if(key_name == "Key: F4") return 109;
-    if(key_name == "Key: F5") return 110;
-    if(key_name == "Key: F6") return 111;
-    if(key_name == "Key: F7") return 112;
-    if(key_name == "Key: F8") return 113;
-    if(key_name == "Key: F9") return 114;
-    if(key_name == "Key: F10") return 115;
-    if(key_name == "Key: F11") return 116;
-    if(key_name == "Key: F12") return 117;
-    if(key_name == "Key: Print Screen") return 118;
-    if(key_name == "Key: `") return 84;
-    if(key_name == "Key: 1") return 85;
-    if(key_name == "Key: 2") return 86;
-    if(key_name == "Key: 3") return 87;
-    if(key_name == "Key: 4") return 88;
-    if(key_name == "Key: 5") return 89;
-    if(key_name == "Key: 6") return 90;
-    if(key_name == "Key: 7") return 91;
-    if(key_name == "Key: 8") return 92;
-    if(key_name == "Key: 9") return 93;
-    if(key_name == "Key: 0") return 94;
-    if(key_name == "Key: -") return 95;
-    if(key_name == "Key: =") return 96;
-    if(key_name == "Key: Backspace") return 98;
-    if(key_name == "Key: Insert") return 119;
-    if(key_name == "Key: Home") return 121;
-    if(key_name == "Key: Page Up") return 123;
-    if(key_name == "Key: Delete") return 120;
-    if(key_name == "Key: End") return 122;
-    if(key_name == "Key: Page Down") return 124;
-    if(key_name == "Key: Tab") return 63;
-    if(key_name == "Key: Q") return 65;
-    if(key_name == "Key: W") return 66;
-    if(key_name == "Key: E") return 67;
-    if(key_name == "Key: R") return 68;
-    if(key_name == "Key: T") return 69;
-    if(key_name == "Key: Y") return 70;
-    if(key_name == "Key: U") return 71;
-    if(key_name == "Key: I") return 72;
-    if(key_name == "Key: O") return 73;
-    if(key_name == "Key: P") return 74;
-    if(key_name == "Key: [") return 75;
-    if(key_name == "Key: ]") return 76;
-    if(key_name == "Key: Caps Lock") return 42;
-    if(key_name == "Key: A") return 44;
-    if(key_name == "Key: S") return 45;
-    if(key_name == "Key: D") return 46;
-    if(key_name == "Key: F") return 47;
-    if(key_name == "Key: G") return 48;
-    if(key_name == "Key: H") return 49;
-    if(key_name == "Key: J") return 50;
-    if(key_name == "Key: K") return 51;
-    if(key_name == "Key: L") return 52;
-    if(key_name == "Key: ;") return 53;
-    if(key_name == "Key: '") return 54;
-    if(key_name == "Key: #") return 55;
-    if(key_name == "Key: Enter") return 77;
-    if(key_name == "Key: Left Shift") return 22;
-    if(key_name == "Key: \\ (ISO)") return 23;
-    if(key_name == "Key: Z") return 24;
-    if(key_name == "Key: X") return 25;
-    if(key_name == "Key: C") return 26;
-    if(key_name == "Key: V") return 27;
-    if(key_name == "Key: B") return 28;
-    if(key_name == "Key: N") return 29;
-    if(key_name == "Key: M") return 30;
-    if(key_name == "Key: ,") return 31;
-    if(key_name == "Key: .") return 32;
-    if(key_name == "Key: /") return 33;
-    if(key_name == "Key: Right Shift") return 35;
-    if(key_name == "Key: Left Control") return 0;
-    if(key_name == "Key: Left Fn") return 2;
-    if(key_name == "Key: Left Windows") return 3;
-    if(key_name == "Key: Left Alt") return 4;
-    if(key_name == "Key: Space") return 7;
-    if(key_name == "Key: Right Alt") return 10;
-    if(key_name == "Key: Right Control") return 12;
-    if(key_name == "Key: Up Arrow") return 14;
-    if(key_name == "Key: Left Arrow") return 13;
-    if(key_name == "Key: Down Arrow") return 18;
-    if(key_name == "Key: Right Arrow") return 15;
-    if(key_name == "Key: Num Lock") return 99;
-    if(key_name == "Key: Number Pad /") return 100;
-    if(key_name == "Key: Number Pad *") return 101;
-    if(key_name == "Key: Number Pad -") return 102;
-    if(key_name == "Key: Number Pad +") return 81;
-    if(key_name == "Key: Number Pad 7") return 78;
-    if(key_name == "Key: Number Pad 8") return 79;
-    if(key_name == "Key: Number Pad 9") return 80;
-    if(key_name == "Key: Number Pad 6") return 59;
-    if(key_name == "Key: Number Pad 4") return 57;
-    if(key_name == "Key: Number Pad 5") return 58;
-    if(key_name == "Key: Number Pad 1") return 36;
-    if(key_name == "Key: Number Pad 2") return 37;
-    if(key_name == "Key: Number Pad 3") return 38;
-    if(key_name == "Key: Number Pad Enter") return 39;
-    if(key_name == "Key: Number Pad 0") return 16;
-    if(key_name == "Key: Number Pad .") return 17;
-    return 0;
+    static const std::unordered_map<std::string, unsigned int> hw_value_map = {
+        // F-row
+        {"Key: Escape", 105},
+        {"Key: F1", 106}, {"Key: F2", 107}, {"Key: F3", 108}, {"Key: F4", 109},
+        {"Key: F5", 110}, {"Key: F6", 111}, {"Key: F7", 112}, {"Key: F8", 113},
+        {"Key: F9", 114}, {"Key: F10", 115}, {"Key: F11", 116}, {"Key: F12", 117},
+        {"Key: Print Screen", 118},
+        // Number row
+        {"Key: `", 84},
+        {"Key: 1", 85}, {"Key: 2", 86}, {"Key: 3", 87}, {"Key: 4", 88},
+        {"Key: 5", 89}, {"Key: 6", 90}, {"Key: 7", 91}, {"Key: 8", 92},
+        {"Key: 9", 93}, {"Key: 0", 94},
+        {"Key: -", 95}, {"Key: =", 96}, {"Key: Backspace", 98},
+        {"Key: Insert", 119}, {"Key: Home", 121}, {"Key: Page Up", 123},
+        {"Key: Delete", 120}, {"Key: End", 122}, {"Key: Page Down", 124},
+        // QWERTY row
+        {"Key: Tab", 63},
+        {"Key: Q", 65}, {"Key: W", 66}, {"Key: E", 67}, {"Key: R", 68},
+        {"Key: T", 69}, {"Key: Y", 70}, {"Key: U", 71}, {"Key: I", 72},
+        {"Key: O", 73}, {"Key: P", 74},
+        {"Key: [", 75}, {"Key: ]", 76},
+        // ASDF row
+        {"Key: Caps Lock", 42},
+        {"Key: A", 44}, {"Key: S", 45}, {"Key: D", 46}, {"Key: F", 47},
+        {"Key: G", 48}, {"Key: H", 49}, {"Key: J", 50}, {"Key: K", 51},
+        {"Key: L", 52}, {"Key: ;", 53}, {"Key: '", 54}, {"Key: #", 55},
+        {"Key: Enter", 77},
+        // ZXCV row
+        {"Key: Left Shift", 22},
+        {"Key: \\ (ISO)", 23},
+        {"Key: Z", 24}, {"Key: X", 25}, {"Key: C", 26}, {"Key: V", 27},
+        {"Key: B", 28}, {"Key: N", 29}, {"Key: M", 30},
+        {"Key: ,", 31}, {"Key: .", 32}, {"Key: /", 33},
+        {"Key: Right Shift", 35},
+        // Modifiers
+        {"Key: Left Control", 0}, {"Key: Left Fn", 2}, {"Key: Left Windows", 3},
+        {"Key: Left Alt", 4}, {"Key: Space", 7}, {"Key: Right Alt", 10},
+        {"Key: Right Control", 12},
+        // Arrows
+        {"Key: Up Arrow", 14}, {"Key: Left Arrow", 13},
+        {"Key: Down Arrow", 18}, {"Key: Right Arrow", 15},
+        // Numpad
+        {"Key: Num Lock", 99},
+        {"Key: Number Pad /", 100}, {"Key: Number Pad *", 101}, {"Key: Number Pad -", 102},
+        {"Key: Number Pad +", 81},
+        {"Key: Number Pad 7", 78}, {"Key: Number Pad 8", 79}, {"Key: Number Pad 9", 80},
+        {"Key: Number Pad 6", 59},
+        {"Key: Number Pad 4", 57}, {"Key: Number Pad 5", 58},
+        {"Key: Number Pad 1", 36}, {"Key: Number Pad 2", 37}, {"Key: Number Pad 3", 38},
+        {"Key: Number Pad Enter", 39},
+        {"Key: Number Pad 0", 16}, {"Key: Number Pad .", 17}
+    };
+
+    auto it = hw_value_map.find(key_name);
+    return (it != hw_value_map.end()) ? it->second : 0;
 }
 
 
